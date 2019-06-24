@@ -11,12 +11,22 @@
     "type": "git",
     "url": "git+https://github.com/CryosisOS/administration_bot.git"
   },
-  "author": [
-    "Cryosis",
-    "Phob",
-    "PotatoMaster101",
-    "tobyTommassen",
-    "Xiao Nai"
+  "contributors": [
+    {
+      "name":"Cryosis"
+    },
+    {
+      "name":"Phob"
+    },
+    {
+      "name":"PotatoMaster101"
+    },
+    {
+      "name":"tobyTomassen"
+    },
+    {
+      "name":"Xiao Nai"
+    }
   ],
   "license": "ISC",
   "bugs": {
