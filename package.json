@@ -1,0 +1,30 @@
+{
+  "name": "administration_bot",
+  "version": "1.0.0",
+  "description": "Discord bot project for Discord's Hackathon week.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/controller/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CryosisOS/administration_bot.git"
+  },
+  "author": [
+    "Cryosis",
+    "Phob",
+    "PotatoMaster101",
+    "tobyTommassen",
+    "Xiao Nai"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CryosisOS/administration_bot/issues"
+  },
+  "homepage": "https://github.com/CryosisOS/administration_bot#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "request": "^2.88.0"
+  }
+}
