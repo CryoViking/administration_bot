@@ -13,19 +13,19 @@
   },
   "contributors": [
     {
-      "name":"Cryosis"
+      "name": "Cryosis"
     },
     {
-      "name":"Phob"
+      "name": "Phob"
     },
     {
-      "name":"PotatoMaster101"
+      "name": "PotatoMaster101"
     },
     {
-      "name":"tobyTomassen"
+      "name": "tobyTomassen"
     },
     {
-      "name":"Xiao Nai"
+      "name": "Xiao Nai"
     }
   ],
   "license": "ISC",
@@ -35,6 +35,7 @@
   "homepage": "https://github.com/CryosisOS/administration_bot#readme",
   "dependencies": {
     "discord.js": "^11.5.1",
+    "fs": "0.0.1-security",
     "request": "^2.88.0"
   }
 }
