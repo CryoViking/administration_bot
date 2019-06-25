@@ -1,0 +1,33 @@
+{
+    "extensions":[
+        "c",
+        "cc",
+        "class",
+        "clj",
+        "cpp",
+        "cs",
+        "cxx",
+        "el",
+        "go",
+        "h",
+        "java",
+        "lua",
+        "m",
+        "m4",
+        "php",
+        "pl",
+        "po",
+        "py",
+        "rb",
+        "rs",
+        "sh",
+        "sh",
+        "swift",
+        "vb",
+        "vcxproj",
+        "xcodeproj",
+        "xml",
+        "diff",
+        "patch"
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "extensions":[
+        "ods",
+        "xls",
+        "xlsx",
+        "csv",
+        "ics",
+        "vcf"
+    ]
+}
