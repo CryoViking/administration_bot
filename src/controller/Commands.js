@@ -32,6 +32,7 @@ async function ping(msg){
 }
 
 async function doGraphStuff(msg) {
+    // only for testing purpose
     var nums = msg.content.split(" ");
     if (nums == undefined || nums.length == 0) {
         msg.channel.send("syntax: !graph <numbers>");
