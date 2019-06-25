@@ -19,8 +19,8 @@ module.exports = {
     download: async function(author, url){
         var body = await this.request(url);
         //If one author uploads to files with same name. Override first with second.
-        var filename = `${author}_${this.extractFileName(url)}`;
-        this.saveFile(filename, body);
+        var filename = `${author}_${extractFileName(url)}`;
+        saveFile(filename, body);
         return body;
     }
 }
