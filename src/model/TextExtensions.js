@@ -1,9 +1,5 @@
 const code_extensions = require("../../res/file_extensions/ascii.json")
 
-module.exports = {
-    TextExtensions: TextExtensions
-}
-
 class TextExtensions {
     constructor(){
         this.extensions = [];
@@ -19,4 +15,8 @@ class TextExtensions {
         });
         return contains
     }
+}
+
+module.exports = {
+    TextExtensions: TextExtensions
 }
