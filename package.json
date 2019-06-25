@@ -35,7 +35,10 @@
   "homepage": "https://github.com/CryosisOS/administration_bot#readme",
   "dependencies": {
     "discord.js": "^11.5.1",
+    "fetch": "^1.1.0",
     "fs": "0.0.1-security",
+    "mkdirp": "^0.5.1",
+    "node-fetch": "^2.6.0",
     "request": "^2.88.0"
   }
 }

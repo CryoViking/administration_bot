@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Category",
+        "type": 4,
+        "topic": "The description at the top of the chat",
+        "rate_limit_per_user": 0,
+        "position": 0,
+        "permissions":["list", "of", "roles", "by", "name"],
+        "nsfw":false,
+        "children":[
+            {
+                "name": "text-channel-one",
+                "type": 0,
+                "topic": "The description at the top of the chat",
+                "rate_limit_per_user": 0,
+                "position": 0,
+                "inherit_from_parent":true,
+                "permissions":["list", "of", "roles", "by", "name"],
+                "nsfw":false
+            },
+            {
+                "name": "text-channel-two",
+                "type": 1,
+                "topic": "The description at the top of the chat",
+                "rate_limit_per_user": 0,
+                "position": 1,
+                "inherit_from_parent":false,
+                "permissions":["list", "of", "roles", "by", "name"],
+                "nsfw":false
+            },
+            {
+                "name": "voice-channel",
+                "type": 2,
+                "topic": "The description at the top of the chat",
+                "bit-rate": 64,
+                "user_limit": 0,
+                "position": 2,
+                "inherit_from_parent":false,
+                "permissions":["list", "of", "roles", "by", "name"],
+                "nsfw":false
+            }
+        ]
+    }
+]

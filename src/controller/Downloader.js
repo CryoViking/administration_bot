@@ -1,4 +1,6 @@
+const mkdirp = require('mkdirp');
 const fs = require('fs');
+var getDirName = require('path').dirname;
 
 module.exports = {
     /**
@@ -22,6 +24,24 @@ module.exports = {
         var filename = `${author}_${extractFileName(url)}`;
         saveFile(filename, body);
         return body;
+    },
+    /**
+     * This function saves the content passed to the filename given.
+     * Location that it saves to is at ../../cache/temp/file/
+     */
+    saveFile: async function(filename, contents) {
+        let path = "./cache/temp/file/";
+        mkdirp(path, function (err) {
+            if (err) console.log(error);
+            fs.writeFile(`${path}${filename}`, contents, (err)=>{
+                if(err) console.log(err);
+                console.log(`File saved to disk\ndestination: ${path}${filename}`);
+            });
+        });
+    },
+    saveJsonFile: async function(filename, contents) {
+        let content = JSON.stringify(contents, null, 4);
+        this.saveFile(filename, content);
     }
 }
 
@@ -30,10 +50,3 @@ function extractFileName(url){
     return args[args.length - 1];
 }
 
-function saveFile(filename, contents){
-    var destination = `./cache/temp/file/${filename}`;
-    fs.writeFile(destination, contents, (err) => {
-        if(err) console.log(err);
-        console.log(`Saved file to disk\ndesntion:${contents}`);
-    })
-}

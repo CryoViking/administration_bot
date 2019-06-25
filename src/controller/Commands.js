@@ -1,7 +1,7 @@
 const downloader = require('./Downloader.js');
 const grapher = require('../view/Grapher.js');
 const fileDisplay = require('../view/DisplayFile.js');
-const snippet = require('../view/ViewConstants.js');
+const guildReqeusts = require('./GuildHttpsRequest.js');
 
 module.exports = {
     commandSwitch: async function commandSwitch(msg){
@@ -16,7 +16,10 @@ module.exports = {
              * Saves the first attachment of the message to disk and displays it's contents, if able.
              */
             case "import":
-                await readAttachment(msg);
+                await importConfiguration(msg);
+                break;
+            case "export":
+                await exportConfiguration(msg);
                 break;
             case "graph":
                 await doGraphStuff(msg);
@@ -42,7 +45,14 @@ async function doGraphStuff(msg) {
     }
 }
 
-async function readAttachment(msg){
+async function exportConfiguration(msg){
+    let guildID = msg.guild.id;
+    let data = await guildReqeusts.requestChannels(guildID);
+    console.log(data);
+    await downloader.saveJsonFile("current_configuration.json", data);
+}
+
+async function importConfiguration(msg){
     var author = msg.author.id;
     let url = msg.attachments.first().url;
     msg.channel.send("Reading the file! Fetching Data...");

@@ -1,4 +1,3 @@
-const fs = require('fs');
 const text_extensions = require('../model/TextExtensions.js');
 const image_extensions = require('../model/ImageExtensions.js');
 
