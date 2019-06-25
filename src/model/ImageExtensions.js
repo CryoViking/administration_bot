@@ -1,9 +1,5 @@
 const code_extensions = require("../../res/file_extensions/image.json")
 
-module.exports = {
-    ImageExtensions: ImageExtensions
-}
-
 class ImageExtensions {
     constructor(){
         this.extensions = [];
@@ -19,4 +15,8 @@ class ImageExtensions {
         });
         return contains
     }
+}
+
+module.exports = {
+    ImageExtensions: ImageExtensions
 }
