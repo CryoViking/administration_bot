@@ -1,5 +1,5 @@
 const downloader = require('./Downloader.js');
-const grapher = require('./Grapher.js');
+const grapher = require('../view/Grapher.js');
 const fileDisplay = require('../view/DisplayFile.js');
 const snippet = require('../view/ViewConstants.js');
 
@@ -34,12 +34,11 @@ async function ping(msg){
 async function doGraphStuff(msg) {
     // only for testing purpose
     var nums = msg.content.split(" ");
-    if (nums == undefined || nums.length == 0) {
+    if (nums.length == 1) {
         msg.channel.send("syntax: !graph <numbers>");
     } else {
         nums.shift();
-        for (var i = 0; i < nums.length; i++)
-            msg.channel.send(`x = ${i + 1}, y = ${nums[i]}`);
+        grapher.graph(msg, nums);
     }
 }
 
