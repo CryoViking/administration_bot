@@ -1,5 +1,5 @@
 const downloader = require('./Downloader.js');
-const grapher = require('../view/Grapher.js');
+const grapher = require('./Grapher.js');
 const fileDisplay = require('../view/DisplayFile.js');
 const guildReqeusts = require('./GuildHttpsRequest.js');
 
@@ -36,7 +36,7 @@ async function ping(msg){
 
 async function doGraphStuff(msg) {
     // only for testing purpose
-    var nums = msg.content.split(" ");
+    var nums = msg.content.split(" ").map(Number);
     if (nums.length == 1) {
         msg.channel.send("syntax: !graph <numbers>");
     } else {
