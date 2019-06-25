@@ -16,6 +16,9 @@ module.exports = {
              */
             case "import":
                 break;
+            case "graph":
+                await doGraphStuff(msg);
+                break;
             default:
                 msg.channel.send("This is not a valid command.");
         }//END SWITCH
@@ -24,6 +27,17 @@ module.exports = {
 
 async function ping(msg){
     msg.channel.send("Pong!");
+}
+
+async function doGraphStuff(msg) {
+    var nums = msg.content.split(" ");
+    if (nums == undefined || nums.length == 0) {
+        msg.channel.send("syntax: !graph <numbers>");
+    } else {
+        nums.shift();
+        for (var i = 0; i < nums.length; i++)
+            msg.channel.send(`x = ${i + 1}, y = ${nums[i]}`);
+    }
 }
 
 async function readAttachment(msg){
