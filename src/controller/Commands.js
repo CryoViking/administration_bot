@@ -1,4 +1,5 @@
 const downloader = require('./Downloader.js');
+const grapher = require('./Grapher.js');
 const snippet = require('../view/ViewConstants.js');
 
 module.exports = {
