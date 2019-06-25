@@ -1,5 +1,6 @@
 const downloader = require('./Downloader.js');
 const grapher = require('./Grapher.js');
+const fileDisplay = require('../view/DisplayFile.js');
 const snippet = require('../view/ViewConstants.js');
 
 module.exports = {
@@ -15,6 +16,7 @@ module.exports = {
              * Saves the first attachment of the message to disk and displays it's contents, if able.
              */
             case "import":
+                await readAttachment(msg);
                 break;
             case "graph":
                 await doGraphStuff(msg);
@@ -45,22 +47,7 @@ async function readAttachment(msg){
     let url = msg.attachments.first().url;
     msg.channel.send("Reading the file! Fetching Data...");
     try{
-        var body = await downloader.download(author, url);
-        let maxChar = 2000;
-        let snipperChars = 8;
-        if(body.length > maxChar - snippetChar){
-            msg.channel.send("File contents exceed char count. Cannot paste content.");
-        }
-        else{
-            msg.channel.send({embed: {
-                author:{
-                    name: msg.author.username,
-                    icon_url: msg.author.avatarURL
-                },
-                title: "File Contents",
-                content: `${snippet.TRIPLE_BACKTICK}${body}${snippet.TRIPLE_BACKTICK}`
-            }});
-        }
+        fileDisplay.display(msg, await downloader.download(author, url),url);
     }
     catch(err){
         msg.channel.send("There was an error in reading the file.");
