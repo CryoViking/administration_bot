@@ -1,125 +1,90 @@
 [
     {
-        "permission_overwrites": [],
         "name": "Text Channels",
-        "parent_id": null,
-        "nsfw": false,
-        "position": 0,
-        "guild_id": "591624515625287684",
         "type": 4,
-        "id": "591624515625287688"
-    },
-    {
-        "guild_id": "591624515625287684",
-        "name": "general",
-        "permission_overwrites": [],
-        "topic": null,
-        "parent_id": "591624515625287688",
-        "nsfw": false,
         "position": 0,
-        "rate_limit_per_user": 0,
-        "last_message_id": "593328293646696470",
-        "type": 0,
-        "id": "591624515625287692"
+        "permissions": [],
+        "nsfw": false,
+        "children": [
+            {
+                "name": "general",
+                "type": 0,
+                "topic": null,
+                "rate_limit_per_user": 0,
+                "position": 0,
+                "permission_overwrites": [],
+                "nsfw": false
+            },
+            {
+                "name": "eehabsniho",
+                "type": 0,
+                "topic": "",
+                "rate_limit_per_user": 0,
+                "position": 1,
+                "permission_overwrites": [],
+                "nsfw": false
+            },
+            {
+                "name": "helper",
+                "type": 0,
+                "topic": null,
+                "rate_limit_per_user": 0,
+                "position": 2,
+                "permission_overwrites": [],
+                "nsfw": false
+            },
+            {
+                "name": "yui",
+                "type": 0,
+                "topic": null,
+                "rate_limit_per_user": 0,
+                "position": 4,
+                "permission_overwrites": [],
+                "nsfw": false
+            },
+            {
+                "name": "testbot",
+                "type": 0,
+                "topic": null,
+                "rate_limit_per_user": 0,
+                "position": 3,
+                "permission_overwrites": [],
+                "nsfw": false
+            },
+            {
+                "name": "commits",
+                "type": 0,
+                "topic": null,
+                "rate_limit_per_user": 0,
+                "position": 6,
+                "permission_overwrites": [],
+                "nsfw": false
+            },
+            {
+                "name": "administration-bot",
+                "type": 0,
+                "topic": "",
+                "rate_limit_per_user": 0,
+                "position": 5,
+                "permission_overwrites": [],
+                "nsfw": false
+            }
+        ]
     },
     {
-        "permission_overwrites": [],
         "name": "Voice Channels",
-        "parent_id": null,
-        "nsfw": false,
-        "position": 0,
-        "guild_id": "591624515625287684",
         "type": 4,
-        "id": "591624515625287696"
-    },
-    {
-        "permission_overwrites": [],
-        "name": "General",
-        "user_limit": 0,
-        "type": 2,
-        "parent_id": "591624515625287696",
-        "nsfw": false,
         "position": 0,
-        "guild_id": "591624515625287684",
-        "bitrate": 64000,
-        "id": "591624515625287704"
-    },
-    {
-        "guild_id": "591624515625287684",
-        "name": "eehabsniho",
-        "permission_overwrites": [],
-        "topic": "",
-        "parent_id": "591624515625287688",
+        "permissions": [],
         "nsfw": false,
-        "position": 1,
-        "rate_limit_per_user": 0,
-        "last_message_id": "592415021099909131",
-        "type": 0,
-        "id": "591809313438302211"
-    },
-    {
-        "guild_id": "591624515625287684",
-        "name": "helper",
-        "permission_overwrites": [],
-        "topic": null,
-        "parent_id": "591624515625287688",
-        "nsfw": false,
-        "position": 2,
-        "rate_limit_per_user": 0,
-        "last_message_id": null,
-        "type": 0,
-        "id": "592007885567819776"
-    },
-    {
-        "guild_id": "591624515625287684",
-        "name": "yui",
-        "permission_overwrites": [],
-        "topic": null,
-        "parent_id": "591624515625287688",
-        "nsfw": false,
-        "position": 4,
-        "rate_limit_per_user": 0,
-        "last_message_id": "592948108267356161",
-        "type": 0,
-        "id": "592007907831185431"
-    },
-    {
-        "guild_id": "591624515625287684",
-        "name": "testbot",
-        "permission_overwrites": [],
-        "topic": null,
-        "parent_id": "591624515625287688",
-        "nsfw": false,
-        "position": 3,
-        "rate_limit_per_user": 0,
-        "last_message_id": "592029109245313027",
-        "type": 0,
-        "id": "592009254660210701"
-    },
-    {
-        "guild_id": "591624515625287684",
-        "name": "commits",
-        "permission_overwrites": [],
-        "topic": null,
-        "parent_id": "591624515625287688",
-        "nsfw": false,
-        "position": 6,
-        "rate_limit_per_user": 0,
-        "last_message_id": "593314397980721164",
-        "type": 0,
-        "id": "592811876363141133"
-    },
-    {
-        "guild_id": "591624515625287684",
-        "name": "administration-bot",
-        "permission_overwrites": [],
-        "topic": "",
-        "parent_id": "591624515625287688",
-        "nsfw": false,
-        "position": 5,
-        "rate_limit_per_user": 0,
-        "last_message_id": "593328423641022512",
-        "type": 0,
-        "id": "593040110132396052"
+        "children": [
+            {
+                "name": "General",
+                "type": 2,
+                "position": 0,
+                "permission_overwrites": [],
+                "nsfw": false
+            }
+        ]
     }
 ]

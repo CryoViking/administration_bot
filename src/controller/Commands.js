@@ -48,13 +48,18 @@ async function doGraphStuff(msg) {
 }
 
 async function exportConfiguration(msg){
+    msg.channel.send(`Exporting Configuration. Executor - ${msg.author.username}`)
+    console.log(`Exporting Configuration. Executor - ${msg.author.username}`);
     let guildID = msg.guild.id;
     let data = await guildReqeusts.requestChannels(guildID);
-    await export_command.filterChannelInformation(data);
-    await downloader.saveJsonFile("current_configuration.json", data);
+    let filtered = await export_command.filterChannelInformation(data);
+    await downloader.saveJsonFile("current_configuration.json", filtered);
+    msg.channel.send(`${msg.author} - Here is the current configuration`, { files: ["./cache/temp/file/current_configuration.json"] });
 }
 
 async function importConfiguration(msg){
+    msg.channel.send(`Importing Configuration. Executor - ${msg.author.username}`)
+    console.log(`Importing Configuration. Executor - ${msg.author.username}`);
     var author = msg.author.id;
     let url = msg.attachments.first().url;
     msg.channel.send("Reading the file! Fetching Data...");
