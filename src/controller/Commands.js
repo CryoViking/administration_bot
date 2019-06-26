@@ -43,6 +43,7 @@ async function doGraphStuff(msg) {
         nums.shift();
         grapher.graph(nums, "test.png");
     }
+    msg.channel.send("i didn't crash");
 }
 
 async function exportConfiguration(msg){
