@@ -36,15 +36,13 @@ async function ping(msg){
 }
 
 async function doGraphStuff(msg) {
-    // only for testing purpose
     var nums = msg.content.split(" ").map(Number);
     if (nums.length == 1) {
         msg.channel.send("syntax: !graph <numbers>");
     } else {
         nums.shift();
-        grapher.graph(nums, "test.png");
+        grapher.graph("graph.png", nums);
     }
-    msg.channel.send("i didn't crash");
 }
 
 async function exportConfiguration(msg){
