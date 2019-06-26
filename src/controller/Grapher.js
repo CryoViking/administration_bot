@@ -1,5 +1,3 @@
-const {spawn} = require('child_process');
-
 module.exports = {
     // Performs graphing and save to a PNG.
     graph: async function(filename, nums, x = 1, xinc = 1) {
@@ -27,12 +25,5 @@ function coorArray(nums, xstart = 1, xinc = 1) {
         xstart += xinc;
     }
     return ret;
-}
-
-// Runs a bash command. 
-function runCMD(cmd, args) {
-    // TODO this function is for debugging purpose
-    const run = spawn(cmd, args);
-    run.stdout.on('data', (data) => {console.log(`${data}`);});
 }
 
