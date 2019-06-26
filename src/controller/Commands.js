@@ -41,7 +41,7 @@ async function doGraphStuff(msg) {
         msg.channel.send("syntax: !graph <numbers>");
     } else {
         nums.shift();
-        grapher.graph(msg, nums);
+        grapher.graph(nums, "test.png");
     }
 }
 
