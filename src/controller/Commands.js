@@ -2,6 +2,7 @@ const downloader = require('./Downloader.js');
 const grapher = require('./Grapher.js');
 const fileDisplay = require('../view/DisplayFile.js');
 const guildReqeusts = require('./GuildHttpsRequest.js');
+const export_command = require('./Export.js');
 
 module.exports = {
     commandSwitch: async function commandSwitch(msg){
@@ -49,7 +50,7 @@ async function doGraphStuff(msg) {
 async function exportConfiguration(msg){
     let guildID = msg.guild.id;
     let data = await guildReqeusts.requestChannels(guildID);
-    console.log(data);
+    await export_command.filterChannelInformation(data);
     await downloader.saveJsonFile("current_configuration.json", data);
 }
 
