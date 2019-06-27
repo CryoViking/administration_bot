@@ -4,19 +4,41 @@
             "name": "Helper",
             "permissions": 8,
             "color": 0,
+            "hoist": false,
+            "managed": true,
             "mentionable": false
+        },
+        {
+            "name": "EVERTHING-NON-ADMIN",
+            "permissions": 1341643969,
+            "color": 1179394,
+            "hoist": false,
+            "managed": false,
+            "mentionable": true
         },
         {
             "name": "EVERYTHING",
             "permissions": 2146959103,
             "color": 3447003,
+            "hoist": true,
+            "managed": false,
             "mentionable": true
         },
         {
             "name": "@everyone",
             "permissions": 104324673,
             "color": 0,
+            "hoist": false,
+            "managed": false,
             "mentionable": false
+        },
+        {
+            "name": "AdministrationBot",
+            "permissions": 2146959359,
+            "color": 10181046,
+            "hoist": true,
+            "managed": false,
+            "mentionable": true
         }
     ],
     "channels": [

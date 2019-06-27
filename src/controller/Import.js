@@ -1,28 +1,40 @@
 const guildReqeusts = require('./GuildHttpsRequest.js');
+const Discord = require('discord.js');
 
-module.exports.importConfiguration = async function(guildID, JSONConfig){
-    var stillExists = await clearRoles(guildID);
-    JSONConfig.roles.forEach(element => {
-        stillExists.forEach(existing => {
-            if(!roleEqual(element, existing)){
-                guildReqeusts.createRole(element);
+module.exports.importConfiguration = async function(guild, JSONConfig){
+    await clearRoles(guild);
+    JSON.parse(JSONConfig).roles.forEach(async(element) => {
+            if(element.permissions !== "AdministrationBot" && 
+                element.name !== "@everyone" &&
+                element.managed !== true)
+            {
+                await guild.createRole({
+                    name: element.name,
+                    permissions: element.permissions,
+                    color: element.color,
+                    hoist: element.hoist,
+                    mentionable: element.mentionable
+                }).then(role => console.log(`Created new role with name ${role.name}`))
+                    .catch(/* do nothing */);
             }
-        })
     })
 }
 
-async function clearRoles(guildID){
-    let currentRoles = guildReqeusts.requestChannels(guildID);
-    var stillExists = [];
-    currentRoles.forEach(role => {
-        if(role.permissions !== 2146958591){
-            guildReqeusts.deleteRole(guildID, role.id);
-        }
-        else{
-            stillExists.push(role);
+async function clearRoles(guild){
+    let roles = await guildReqeusts.requestRoles(guild.id).catch("Error");
+    roles.forEach(role => {
+        if(role.name !== "AdministrationBot" &&
+            role.managed !== true &&
+            role.name !== "@everyone")
+        {
+            try{
+                guildReqeusts.deleteRole(guild.id, role.id);
+            }
+            catch(err){
+                //do nothing
+            }
         }
     });
-    return stillExists;
 }
 
 async function roleEqual(role1, role2){

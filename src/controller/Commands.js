@@ -3,6 +3,7 @@ const py = require('./PyExec.js');
 const fileDisplay = require('../view/DisplayFile.js');
 const guildReqeusts = require('./GuildHttpsRequest.js');
 const export_command = require('./Export.js');
+const import_command = require('./Import.js');
 const confirmation = require('../view/Confirmation.js');
 
 module.exports = {
@@ -45,13 +46,9 @@ async function doGraphStuff(msg) {
 }
 
 async function test(msg){
-    let newRole = {
-        name: "EVERTHING-NON-ADMIN",
-        permissions: 1341643969,
-        color: 1179394,
-        mentionable: true
-    }
-    guildReqeusts.createRole(msg.guild.id, newRole);
+    let role_id = '593765501885218816';
+    guildReqeusts.deleteRole(msg.guild.id, role_id);
+    //guildReqeusts.createRole(msg.guild.id, newRole);
 }
 
 async function exportConfiguration(msg){
@@ -73,11 +70,5 @@ async function importConfiguration(msg){
     var author = msg.author.id;
     let url = msg.attachments.first().url;
     let downloadedFile = await downloader.download(author, url);
-
-    //let confirmAction = await confirmation.confirmAction(msg);
-    //console.log(confirmAction);
-    //if(confirmAction) await fileDisplay.display(msg, downloadedFile ,url);
-    //else confirmation.actionCancelled(msg);
-
-    
+    await import_command.importConfiguration(msg.guild, downloadedFile)    
 }

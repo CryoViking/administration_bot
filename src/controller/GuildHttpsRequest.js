@@ -37,8 +37,9 @@ module.exports.createRole = async function(guildID, newRole){
         "Authorization": `Bot ${config.token}`,
         "Content-Type":"application/json",
     }
+    console.log(newRole);
     var options = {
-        "method": "GET",
+        "method": "POST",
         "headers": headers,
         "guild_id": guildID,
         "role": newRole
@@ -58,7 +59,5 @@ module.exports.deleteRole = async function(guildID, roleID){
         "method": "DELETE",
         "headers": headers,
     }
-    return await fetch(url, options)
-        .then(res=> res.json())
-        .then(json => {console.log(json)});
+    return await fetch(url, options).then(console.log(`Deleted role: ${roleID}`)).catch(/*Do nothing*/);
 }

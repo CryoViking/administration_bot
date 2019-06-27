@@ -65,6 +65,8 @@ module.exports.filterRoleData = async function(data){
             name: element.name,
             permissions: element.permissions,
             color: element.color,
+            hoist: element.hoist,
+            managed: element.managed,
             mentionable: element.mentionable
         });
     });
