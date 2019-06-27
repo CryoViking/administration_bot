@@ -8,14 +8,12 @@ module.exports = {
     commandSwitch: async function commandSwitch(msg){
         var args = msg.content.substring(1).split(" ");
         switch(args[0]){
-            /* Command description: 
-             */
             case "ping":
                 await ping(msg);
                 break;
-            /* Command description:
-             * Saves the first attachment of the message to disk and displays it's contents, if able.
-             */
+            case "test":
+                await test(msg);
+                break;
             case "import":
                 await importConfiguration(msg);
                 break;
@@ -43,6 +41,16 @@ async function doGraphStuff(msg) {
         nums.shift();
         grapher.graph("graph.png", nums);
     }
+}
+
+async function test(msg){
+    let newRole = {
+        name: "EVERTHING-NON-ADMIN",
+        permissions: 1341643969,
+        color: 1179394,
+        mentionable: true
+    }
+    guildReqeusts.createRole(msg.guild.id, newRole);
 }
 
 async function exportConfiguration(msg){

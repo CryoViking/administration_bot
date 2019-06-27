@@ -1,0 +1,121 @@
+{
+    "roles": [
+        {
+            "name": "Helper",
+            "permissions": 8,
+            "color": 0,
+            "mentionable": false
+        },
+        {
+            "name": "EVERYTHING",
+            "permissions": 2146959103,
+            "color": 3447003,
+            "mentionable": true
+        },
+        {
+            "name": "@everyone",
+            "permissions": 104324673,
+            "color": 0,
+            "mentionable": false
+        }
+    ],
+    "channels": [
+        {
+            "name": "Text Channels",
+            "type": 4,
+            "position": 0,
+            "permissions": [],
+            "nsfw": false,
+            "children": [
+                {
+                    "name": "general",
+                    "type": 0,
+                    "topic": null,
+                    "rate_limit_per_user": 0,
+                    "position": 0,
+                    "permission_overwrites": [],
+                    "nsfw": false
+                },
+                {
+                    "name": "eehabsniho",
+                    "type": 0,
+                    "topic": "",
+                    "rate_limit_per_user": 0,
+                    "position": 1,
+                    "permission_overwrites": [],
+                    "nsfw": false
+                },
+                {
+                    "name": "helper",
+                    "type": 0,
+                    "topic": null,
+                    "rate_limit_per_user": 0,
+                    "position": 2,
+                    "permission_overwrites": [],
+                    "nsfw": false
+                },
+                {
+                    "name": "yui",
+                    "type": 0,
+                    "topic": null,
+                    "rate_limit_per_user": 0,
+                    "position": 4,
+                    "permission_overwrites": [],
+                    "nsfw": false
+                },
+                {
+                    "name": "testbot",
+                    "type": 0,
+                    "topic": null,
+                    "rate_limit_per_user": 0,
+                    "position": 3,
+                    "permission_overwrites": [],
+                    "nsfw": false
+                },
+                {
+                    "name": "commits",
+                    "type": 0,
+                    "topic": null,
+                    "rate_limit_per_user": 0,
+                    "position": 6,
+                    "permission_overwrites": [],
+                    "nsfw": false
+                },
+                {
+                    "name": "administration-bot",
+                    "type": 0,
+                    "topic": "",
+                    "rate_limit_per_user": 0,
+                    "position": 5,
+                    "permission_overwrites": [],
+                    "nsfw": false
+                },
+                {
+                    "name": "staff-logs",
+                    "type": 0,
+                    "topic": null,
+                    "rate_limit_per_user": 0,
+                    "position": 7,
+                    "permission_overwrites": [],
+                    "nsfw": false
+                }
+            ]
+        },
+        {
+            "name": "Voice Channels",
+            "type": 4,
+            "position": 0,
+            "permissions": [],
+            "nsfw": false,
+            "children": [
+                {
+                    "name": "General",
+                    "type": 2,
+                    "position": 0,
+                    "permission_overwrites": [],
+                    "nsfw": false
+                }
+            ]
+        }
+    ]
+}
