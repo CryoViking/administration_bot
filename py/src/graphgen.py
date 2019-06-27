@@ -17,8 +17,10 @@ def get_args():
             help="starting value of Y axis, default to 0")
     p.add_argument("-yi", "--y-increment", type=float, dest="yi", default=1.0, 
             help="amount to increment Y by, default to 1")
-    p.add_argument("-f", "--file", type=str, dest="file", default="graph.png", 
+    p.add_argument("-o", "--out", type=str, dest="file", default="graph.png", 
             help="the file name of the graph, default to graph.png")
+    p.add_argument("-ocsv", "--out-csv", type=str, dest="oc", default=None, 
+            help="the CSV file to output to")
     p.add_argument("-v", "--verbose", action="store_true", dest="verb", 
             help="produce verbose output")
     return p

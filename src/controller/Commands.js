@@ -1,5 +1,5 @@
 const downloader = require('./Downloader.js');
-const grapher = require('./Grapher.js');
+const py = require('./PyExec.js');
 const fileDisplay = require('../view/DisplayFile.js');
 const guildReqeusts = require('./GuildHttpsRequest.js');
 const export_command = require('./Export.js');
@@ -35,11 +35,12 @@ async function ping(msg){
 
 async function doGraphStuff(msg) {
     var nums = msg.content.split(" ").map(Number);
+    var imgpath = "cache/metrics/img/graph.png"
     if (nums.length == 1) {
         msg.channel.send("syntax: !graph <numbers>");
     } else {
         nums.shift();
-        grapher.graph("graph.png", nums);
+        py.run("graphgen.py", [nums.toString(), '-o', imgpath, '-ys', '1'])
     }
 }
 
