@@ -21,7 +21,6 @@ bot.on('message', async(msg)=>{
     if(!msg.content.startsWith(config.prefix)){
         return;
     }
-
     await commands.commandSwitch(msg);
 });
 

@@ -3,6 +3,7 @@ const py = require('./PyExec.js');
 const fileDisplay = require('../view/DisplayFile.js');
 const guildReqeusts = require('./GuildHttpsRequest.js');
 const export_command = require('./Export.js');
+const confirmation = require('../view/Confirmation.js');
 
 module.exports = {
     commandSwitch: async function commandSwitch(msg){
@@ -72,12 +73,8 @@ async function importConfiguration(msg){
     console.log(`Importing Configuration. Executor - ${msg.author.username}`);
     var author = msg.author.id;
     let url = msg.attachments.first().url;
-    msg.channel.send("Reading the file! Fetching Data...");
-    try{
-        fileDisplay.display(msg, await downloader.download(author, url),url);
-    }
-    catch(err){
-        msg.channel.send("There was an error in reading the file.");
-        console.log(err.toString());
-    }
+    let downloadedFile = await downloader.download(author, url)
+    let confirmAction = await confirmation.confirmAction(msg);
+    if(confirmAction) await fileDisplay.display(msg, downloadedFile ,url);
+    else confirmation.actionCancelled(msg);
 }
