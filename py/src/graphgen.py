@@ -47,12 +47,15 @@ if __name__ == "__main__":
     """
     argp = get_args().parse_args()
     x, y = read_csv(argp.input)
+    first = "{0:%d/%m/%Y}".format(x[0])
+    last = "{0:%d/%m/%Y}".format(x[-1])
     xdates = matplotlib.dates.date2num(x)
 
+    # generate graph
     fig, ax = plt.subplots()
     ax.xaxis.set_major_formatter(DateFormatter("%d/%m/%Y"))
     ax.xaxis.set_tick_params(rotation=30, labelsize=10)
-    ax.set(xlabel="Date", ylabel=argp.yl)
+    ax.set(xlabel="Date (%s TO %s)" %(first, last), ylabel=argp.yl)
 
     plt.plot(xdates, y)
     plt.tight_layout()
