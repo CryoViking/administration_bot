@@ -1,22 +1,25 @@
 const downloader = require('./Downloader.js');
-const grapher = require('./Grapher.js');
+const py = require('./PyExec.js');
 const fileDisplay = require('../view/DisplayFile.js');
 const guildReqeusts = require('./GuildHttpsRequest.js');
 const export_command = require('./Export.js');
+<<<<<<< HEAD
 const admin_command = require('./AdminCommands');
+=======
+const import_command = require('./Import.js');
+const confirmation = require('../view/Confirmation.js');
+>>>>>>> 0adf4950e43106949951f89578f28ec3089017d1
 
 module.exports = {
     commandSwitch: async function commandSwitch(msg){
         var args = msg.content.substring(1).split(" ");
         switch(args[0]){
-            /* Command description: 
-             */
             case "ping":
                 await ping(msg);
                 break;
-            /* Command description:
-             * Saves the first attachment of the message to disk and displays it's contents, if able.
-             */
+            case "test":
+                await test(msg);
+                break;
             case "import":
                 await importConfiguration(msg);
                 break;
@@ -40,13 +43,26 @@ async function ping(msg){
 }
 
 async function doGraphStuff(msg) {
+    msg.channel.send("Graphing...");
     var nums = msg.content.split(" ").map(Number);
-    if (nums.length == 1) {
-        msg.channel.send("syntax: !graph <numbers>");
-    } else {
-        nums.shift();
-        grapher.graph("graph.png", nums);
-    }
+    var imgpath = "cache/metrics/img/graph.png";
+    var csvpath = "cache/metrics/data.csv";
+    nums.shift();
+    py.run("graphgen.py", [csvpath, '-o', imgpath, '-yl', 'Population']);
+    msg.channel.send("Done, check dir");
+}
+
+async function test(msg){
+    let temp = {
+        name: "general",
+        type: 0,
+        topic: null,
+        rate_limit_per_user: 0,
+        position: 0,
+        permission_overwrites: [],
+        nsfw: false
+    };
+    msg.guild.createChannel(temp.name, 'category');
 }
 
 async function warn(msg) {
@@ -57,9 +73,12 @@ async function exportConfiguration(msg){
     msg.channel.send(`Exporting Configuration. Executor - ${msg.author.username}`)
     console.log(`Exporting Configuration. Executor - ${msg.author.username}`);
     let guildID = msg.guild.id;
-    let data = await guildReqeusts.requestChannels(guildID);
-    let filtered = await export_command.filterChannelInformation(data);
-    await downloader.saveJsonFile("current_configuration.json", filtered);
+    let channel_data = await guildReqeusts.requestChannels(guildID);
+    let filtered_channel_data = await export_command.filterChannelInformation(channel_data);
+    let role_data = await guildReqeusts.requestRoles(guildID);
+    let filtered_role_data = await export_command.filterRoleData(role_data);
+    let merged_data = await export_command.mergeJsonData(filtered_channel_data, filtered_role_data);
+    await downloader.saveJsonFile("current_configuration.json", merged_data);
     msg.channel.send(`${msg.author} - Here is the current configuration`, { files: ["./cache/temp/file/current_configuration.json"] });
 }
 
@@ -68,12 +87,6 @@ async function importConfiguration(msg){
     console.log(`Importing Configuration. Executor - ${msg.author.username}`);
     var author = msg.author.id;
     let url = msg.attachments.first().url;
-    msg.channel.send("Reading the file! Fetching Data...");
-    try{
-        fileDisplay.display(msg, await downloader.download(author, url),url);
-    }
-    catch(err){
-        msg.channel.send("There was an error in reading the file.");
-        console.log(err.toString());
-    }
+    let downloadedFile = await downloader.download(author, url);
+    await import_command.importConfiguration(msg.guild, downloadedFile)    
 }
