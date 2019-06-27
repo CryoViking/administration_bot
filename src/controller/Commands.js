@@ -46,9 +46,16 @@ async function doGraphStuff(msg) {
 }
 
 async function test(msg){
-    let role_id = '593765501885218816';
-    guildReqeusts.deleteRole(msg.guild.id, role_id);
-    //guildReqeusts.createRole(msg.guild.id, newRole);
+    let temp = {
+        name: "general",
+        type: 0,
+        topic: null,
+        rate_limit_per_user: 0,
+        position: 0,
+        permission_overwrites: [],
+        nsfw: false
+    };
+    msg.guild.createChannel(temp.name, 'category');
 }
 
 async function exportConfiguration(msg){

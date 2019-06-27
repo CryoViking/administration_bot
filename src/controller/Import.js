@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 
 module.exports.importConfiguration = async function(guild, JSONConfig){
     await clearRoles(guild);
+    await clearChannels(guild);
     JSON.parse(JSONConfig).roles.forEach(async(element) => {
             if(element.permissions !== "AdministrationBot" && 
                 element.name !== "@everyone" &&
@@ -18,6 +19,63 @@ module.exports.importConfiguration = async function(guild, JSONConfig){
                     .catch(/* do nothing */);
             }
     })
+    let categories = [];
+    var position = 0;
+    JSON.parse(JSONConfig).channels.forEach(element => {
+        if(element.type === 4){
+            categories.push({
+                name: element.name,
+                type: element.type,
+                topic: element.topic,
+                rate_limit_per_user: element.rate_limit_per_user,
+                position: position,
+                permission_overwrites: element.permission_overwrites,
+                parent_id: "",
+                nsfw: element.nsfw
+            });
+        }
+        position++;
+    });
+    categories.forEach(element => {
+        /*
+        guild.createChannel(JSON.stringify(element))
+            .then(jsonObj => console.log(`Created Channel ${jsonObj.name}, ID: ${jsonObj.id}`))
+            .catch(console.error);
+            */
+        guildReqeusts.createChannel(guild.id, JSON.stringify(element));
+    });
+    let parentCategories = guildReqeusts.requestChannels();
+    for(var ii = 0; ii<parentCategories.length; ii++){
+        let created = parentCategories.get(ii);
+        let generic = JSON.parse(JSONConfig).channels.get(ii)
+        let created_id = created.id;
+        await generic.children.forEach(async(child) => {
+            /*
+            await guild.createChannel(JSON.stringify({
+                name: child.name,
+                type: child.type,
+                topic: child.topic,
+                rate_limit_per_user: child.rate_limit_per_user,
+                position: child.position,
+                permission_overwrites: child.permission_overwrites,
+                parent_id: created_id,
+                nsfw: child.nsfw
+            })).then(jsonObj => console.log(`Created Channel ${jsonObj.name}, ID: ${jsonObj.id}`))
+            .catch(console.error);
+            */
+            guildReqeusts.createChannel(guild.id, JSON.stringify({
+                name: child.name,
+                type: child.type,
+                topic: child.topic,
+                rate_limit_per_user: child.rate_limit_per_user,
+                position: child.position,
+                permission_overwrites: child.permission_overwrites,
+                parent_id: created_id,
+                nsfw: child.nsfw
+            }));
+        });
+    }
+
 }
 
 async function clearRoles(guild){
@@ -37,13 +95,6 @@ async function clearRoles(guild){
     });
 }
 
-async function roleEqual(role1, role2){
-    if(role1.name === role2.name){
-        if(role1.permissions === role2.permissions){
-            if(role1.mentionable === role2.mentionable){
-                return true;
-            }
-        }
-    }
-    return false;
+async function clearChannels(guild){
+    guild.channels.forEach(channel => channel.delete());
 }

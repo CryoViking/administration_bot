@@ -2,7 +2,7 @@ const config = require('../../res/config.json');
 const fetch = require('node-fetch');
 
 module.exports.requestChannels = async function(guildID){
-    let url = `https://discordapp.com/api/guilds/${guildID}/channels`;
+    let url = `https://discordapp.com/api/v7/guilds/${guildID}/channels`;
     let headers = {
         "Authorization": `Bot ${config.token}`,
         "Content-Type":"application/json",
@@ -16,8 +16,24 @@ module.exports.requestChannels = async function(guildID){
         .then(json => {return json});
 }
 
+module.exports.createChannel = async function(guildID, newChannel){
+    let url = `https://discordapp.com/api/v7/guilds/${guildID}/channels`;
+    let headers = {
+        "Authorization": `Bot ${config.token}`,
+        "Content-Type":"application/json",
+    }
+    var options = {
+        "method": "POST",
+        "headers": headers,
+        "channel": newChannel
+    }
+    return await fetch(url, options)
+        .then(res=> res.json())
+        .then(json => {console.log(json)}); 
+}
+
 module.exports.requestRoles = async function(guildID){
-    let url = `https://discordapp.com/api/guilds/${guildID}/roles`;
+    let url = `https://discordapp.com/api/v7/guilds/${guildID}/roles`;
     let headers = {
         "Authorization": `Bot ${config.token}`,
         "Content-Type":"application/json",
@@ -32,12 +48,12 @@ module.exports.requestRoles = async function(guildID){
 }
 
 module.exports.createRole = async function(guildID, newRole){
-    let url = `https://discordapp.com/api/guilds/${guildID}/roles`;
+    let url = `https://discordapp.com/api/v7/guilds/${guildID}/roles`;
     let headers = {
         "Authorization": `Bot ${config.token}`,
         "Content-Type":"application/json",
     }
-    console.log(newRole);
+
     var options = {
         "method": "POST",
         "headers": headers,
@@ -50,7 +66,7 @@ module.exports.createRole = async function(guildID, newRole){
 }
 
 module.exports.deleteRole = async function(guildID, roleID){
-    let url = `https://discordapp.com/api/guilds/${guildID}/roles/${roleID}`;
+    let url = `https://discordapp.com/api/v7/guilds/${guildID}/roles/${roleID}`;
     let headers = {
         "Authorization": `Bot ${config.token}`,
         "Content-Type":"application/json",
