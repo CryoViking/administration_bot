@@ -49,9 +49,12 @@ async function exportConfiguration(msg){
     msg.channel.send(`Exporting Configuration. Executor - ${msg.author.username}`)
     console.log(`Exporting Configuration. Executor - ${msg.author.username}`);
     let guildID = msg.guild.id;
-    let data = await guildReqeusts.requestChannels(guildID);
-    let filtered = await export_command.filterChannelInformation(data);
-    await downloader.saveJsonFile("current_configuration.json", filtered);
+    let channel_data = await guildReqeusts.requestChannels(guildID);
+    let filtered_channel_data = await export_command.filterChannelInformation(channel_data);
+    let role_data = await guildReqeusts.requestRoles(guildID);
+    let filtered_role_data = await export_command.filterRoleData(role_data);
+    let merged_data = await export_command.mergeJsonData(filtered_channel_data, filtered_role_data);
+    await downloader.saveJsonFile("current_configuration.json", merged_data);
     msg.channel.send(`${msg.author} - Here is the current configuration`, { files: ["./cache/temp/file/current_configuration.json"] });
 }
 

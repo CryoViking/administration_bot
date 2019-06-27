@@ -57,3 +57,24 @@ module.exports.filterChannelInformation = async function(jsonData){
     });
     return finalStructure;
 }
+
+module.exports.filterRoleData = async function(data){
+    let filteredData = [];
+    data.forEach(element=>{
+        filteredData.push(jsonData = {
+            name: element.name,
+            permissions: element.permissions,
+            color: element.color,
+            mentionable: element.mentionable
+        });
+    });
+    return filteredData;
+}
+
+module.exports.mergeJsonData = async function(channelData, roleData) {
+    let finalStructure = {
+        roles: roleData,
+        channels: channelData
+    }
+    return finalStructure;
+}
