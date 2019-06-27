@@ -3,6 +3,7 @@ const grapher = require('./Grapher.js');
 const fileDisplay = require('../view/DisplayFile.js');
 const guildReqeusts = require('./GuildHttpsRequest.js');
 const export_command = require('./Export.js');
+const admin_command = require('./AdminCommands');
 
 module.exports = {
     commandSwitch: async function commandSwitch(msg){
@@ -25,6 +26,9 @@ module.exports = {
             case "graph":
                 await doGraphStuff(msg);
                 break;
+            case "warn":
+                await warn(msg);
+                break;
             default:
                 msg.channel.send("This is not a valid command.");
         }//END SWITCH
@@ -43,6 +47,10 @@ async function doGraphStuff(msg) {
         nums.shift();
         grapher.graph("graph.png", nums);
     }
+}
+
+async function warn(msg) {
+    admin_command.warn(msg.author);
 }
 
 async function exportConfiguration(msg){
