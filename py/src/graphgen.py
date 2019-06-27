@@ -4,7 +4,11 @@
 ###############################################################################
 
 import argparse
+import csv
+import matplotlib
 import matplotlib.pyplot as plt
+from matplotlib.dates import DateFormatter
+from datetime import datetime
 
 def get_args():
     """
@@ -12,26 +16,29 @@ def get_args():
     """
     p = argparse.ArgumentParser(description="Graph generator.")
     p.add_argument("input", type=str, 
-            help="list of X values, separated by commas")
-    p.add_argument("-ys", "--y-start", type=float, dest="ys", default=0.0, 
-            help="starting value of Y axis, default to 0")
-    p.add_argument("-yi", "--y-increment", type=float, dest="yi", default=1.0, 
-            help="amount to increment Y by, default to 1")
+            help="the input CSV file")
     p.add_argument("-o", "--out", type=str, dest="file", default="graph.png", 
             help="the file name of the graph, default to graph.png")
-    p.add_argument("-ocsv", "--out-csv", type=str, dest="oc", default=None, 
-            help="the CSV file to output to")
+    p.add_argument("-yl", "--y-label", type=str, dest="yl", default="Val", 
+            help="the Y axis label")
     p.add_argument("-v", "--verbose", action="store_true", dest="verb", 
             help="produce verbose output")
     return p
 
 
-def graph(xnums, ynums, fname):
+def read_csv(fname):
     """
-    Graph the X and Y values and save to a file. 
+    Reads the CSV and returns X (as dates) and Y (as nums). 
     """
-    plt.plot(xnums, ynums)
-    plt.savefig(fname)
+    x = []
+    y = []
+    with open(fname) as f:
+        csvr = csv.reader(f, delimiter=",")
+        for row in csvr:
+            if (len(row) >= 2):
+                x.append(datetime.strptime(row[0], "%d:%m:%Y"))
+                y.append(float(row[1]))
+    return x, y
 
 
 if __name__ == "__main__":
@@ -39,17 +46,19 @@ if __name__ == "__main__":
     Entry point. 
     """
     argp = get_args().parse_args()
-    xnums = [float(n) for n in argp.input.split(",")]
-    ynums = []
-    ystart = argp.ys
-    yinc = argp.yi
-    for i in range(len(xnums)):
-        ynums.append(ystart)
-        ystart += yinc
-    graph(xnums, ynums, argp.file)
+    x, y = read_csv(argp.input)
+    xdates = matplotlib.dates.date2num(x)
 
+    fig, ax = plt.subplots()
+    ax.xaxis.set_major_formatter(DateFormatter("%d/%m/%Y"))
+    ax.xaxis.set_tick_params(rotation=30, labelsize=10)
+    ax.set(xlabel="Date", ylabel=argp.yl)
+
+    plt.plot(xdates, y)
+    plt.tight_layout()
+    plt.savefig(argp.file)
     if argp.verb:
-        print("X: %s" %xnums)
-        print("Y: %s" %ynums)
+        print("X: %s" %x)
+        print("Y: %s" %y)
     exit(0)
 

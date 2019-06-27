@@ -34,14 +34,13 @@ async function ping(msg){
 }
 
 async function doGraphStuff(msg) {
+    msg.channel.send("Graphing...");
     var nums = msg.content.split(" ").map(Number);
-    var imgpath = "cache/metrics/img/graph.png"
-    if (nums.length == 1) {
-        msg.channel.send("syntax: !graph <numbers>");
-    } else {
-        nums.shift();
-        py.run("graphgen.py", [nums.toString(), '-o', imgpath, '-ys', '1'])
-    }
+    var imgpath = "cache/metrics/img/graph.png";
+    var csvpath = "cache/metrics/data.csv";
+    nums.shift();
+    py.run("graphgen.py", [csvpath, '-o', imgpath, '-yl', 'Population']);
+    msg.channel.send("Done, check dir");
 }
 
 async function test(msg){
