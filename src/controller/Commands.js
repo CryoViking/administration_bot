@@ -74,6 +74,7 @@ async function importConfiguration(msg){
     let url = msg.attachments.first().url;
     let downloadedFile = await downloader.download(author, url)
     let confirmAction = await confirmation.confirmAction(msg);
+    console.log(confirmAction);
     if(confirmAction) await fileDisplay.display(msg, downloadedFile ,url);
     else confirmation.actionCancelled(msg);
 }

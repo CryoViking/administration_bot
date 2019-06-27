@@ -2,16 +2,21 @@ const Discord = require('discord.js');
 
 module.exports.confirmAction = async function(msg){
     msg.channel.send(`${msg.author} - Do you wish to proceed (Y/N): `);
-    const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 10000 });
-    await collector.on('collect', message => {
-        if(message.content in ["Y", "y"]){
-            return true
+    const collector = new Discord.MessageCollector(msg.channel, m => m.author.id === msg.author.id, { time: 10000 });
+    await collector.on('collect', async(message) => {
+        if(message.content == "Y" || message.content == "y"){
+            message.channel.send("Action confirmed, proceeding...");
+            return true;
         }
-        else if(message.content in ["N", "n"]){
+        else if(message.content == "N" || message.content == "n"){
+            message.channel.send("Cancelling Action.");
+            return false;
+        }
+        else{
+            message.channel.send("Invalid character - Cancelling action");
             return false;
         }
     });
-    return false;
 }
 
 module.exports.actionCancelled = async function(msg){
