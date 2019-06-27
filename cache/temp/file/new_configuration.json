@@ -17,6 +17,12 @@
             "permissions": 104324673,
             "color": 0,
             "mentionable": false
+        },
+        {
+            "name": "EVERTHING-NON-ADMIN",
+            "permissions": 1341643969,
+            "color": 1179394,
+            "mentionable": true
         }
     ],
     "channels": [

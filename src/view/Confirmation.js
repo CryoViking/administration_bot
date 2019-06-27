@@ -1,9 +1,10 @@
 const Discord = require('discord.js');
 
+//TODO - Continue working on this.
 module.exports.confirmAction = async function(msg){
     msg.channel.send(`${msg.author} - Do you wish to proceed (Y/N): `);
     const collector = new Discord.MessageCollector(msg.channel, m => m.author.id === msg.author.id, { time: 10000 });
-    await collector.on('collect', async(message) => {
+    collector.on('collect', async(message) => {
         if(message.content == "Y" || message.content == "y"){
             message.channel.send("Action confirmed, proceeding...");
             return true;

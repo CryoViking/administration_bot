@@ -47,3 +47,18 @@ module.exports.createRole = async function(guildID, newRole){
         .then(res=> res.json())
         .then(json => {console.log(json)});
 }
+
+module.exports.deleteRole = async function(guildID, roleID){
+    let url = `https://discordapp.com/api/guilds/${guildID}/roles/${roleID}`;
+    let headers = {
+        "Authorization": `Bot ${config.token}`,
+        "Content-Type":"application/json",
+    }
+    var options = {
+        "method": "DELETE",
+        "headers": headers,
+    }
+    return await fetch(url, options)
+        .then(res=> res.json())
+        .then(json => {console.log(json)});
+}

@@ -72,9 +72,12 @@ async function importConfiguration(msg){
     console.log(`Importing Configuration. Executor - ${msg.author.username}`);
     var author = msg.author.id;
     let url = msg.attachments.first().url;
-    let downloadedFile = await downloader.download(author, url)
-    let confirmAction = await confirmation.confirmAction(msg);
-    console.log(confirmAction);
-    if(confirmAction) await fileDisplay.display(msg, downloadedFile ,url);
-    else confirmation.actionCancelled(msg);
+    let downloadedFile = await downloader.download(author, url);
+
+    //let confirmAction = await confirmation.confirmAction(msg);
+    //console.log(confirmAction);
+    //if(confirmAction) await fileDisplay.display(msg, downloadedFile ,url);
+    //else confirmation.actionCancelled(msg);
+
+    
 }
