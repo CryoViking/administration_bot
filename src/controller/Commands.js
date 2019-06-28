@@ -3,12 +3,9 @@ const py = require('./PyExec.js');
 const fileDisplay = require('../view/DisplayFile.js');
 const guildReqeusts = require('./GuildHttpsRequest.js');
 const export_command = require('./Export.js');
-<<<<<<< HEAD
 const admin_command = require('./AdminCommands');
-=======
 const import_command = require('./Import.js');
 const confirmation = require('../view/Confirmation.js');
->>>>>>> 0adf4950e43106949951f89578f28ec3089017d1
 
 module.exports = {
     commandSwitch: async function commandSwitch(msg){
@@ -66,6 +63,7 @@ async function test(msg){
 }
 
 async function warn(msg) {
+    msg.channel.send('working on it')
     admin_command.warn(msg.author);
 }
 
