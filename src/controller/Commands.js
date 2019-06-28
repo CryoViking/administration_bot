@@ -6,6 +6,7 @@ const export_command = require('./Export.js');
 const admin_command = require('./AdminCommands');
 const import_command = require('./Import.js');
 const confirmation = require('../view/Confirmation.js');
+const winston = require('winston');
 
 module.exports = {
     commandSwitch: async function commandSwitch(msg){
@@ -35,7 +36,28 @@ module.exports = {
     }
 }
 
+var options = {
+    file: {
+        level: 'info',
+        name: 'file.info',
+        filename: `../view/log.txt`,
+    },
+    console: {
+        level: 'debug',
+        handleExceptions: true,
+        json: false,
+        colorize: true,
+    },
+};
+let logger = winston.createLogger({
+    transports: [
+        new (winston.transports.Console)(options.console),
+        new (winston.transports.File)(options.file)
+    ]
+})
+
 async function ping(msg){
+    logger.log('ping command used by ${message.author.tag} ID: ${message.author.id} Time: ${Date()} Guild: ${guild}')
     msg.channel.send("Pong!");
 }
 
