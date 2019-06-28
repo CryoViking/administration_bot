@@ -46,8 +46,7 @@ function warn(msg, args) {
       console.log('beep')
       msg.channel.send('booping')
       var guild = msg.guild;
-      logger.log('info', `Warn command used by ${msg.author.tag} ID: ${msg.author.id} Time: ${Date()} Guild: ${guild}`)
-      if (!msg.guild.member(msg.author).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return msg.reply('Insufficant Permissions').catch(console.error)
+      if (!msg.guild.member(msg.author).hasPermission('KICK_MEMBERS')) return msg.reply('YOU DON\'T GOT THE PERMS').catch(console.error)
       const Discord = require('discord.js');
       const config = require("../config.json");
       let reason = args.slice(1).join(' ')
@@ -64,7 +63,7 @@ function warn(msg, args) {
       if (msg.mentions.users.size < 1) return msg.reply("You must mention someone to warn them.").catch(console.error)
       if (user === msg.author) return msg.reply("You cannot warn yourself")
       const embed = new Discord.RichEmbed()
-         .setColor('#ff9966')
+         .setColor('#8000800')
          .setTimestamp()
          .setThumbnail(user.avatarURL)
          .addField('Action:', "Warning")
@@ -75,7 +74,7 @@ function warn(msg, args) {
          .addField("Server:", msg.guild)
 
       const embed1 = new Discord.RichEmbed()
-         .setColor('#ff9966')
+         .setColor('#8000800')
          .setTimestamp()
          .setThumbnail(user.avatarURL)
          .addField('Action:', "Warning")
