@@ -86,3 +86,72 @@ function warn(msg, args) {
       guild.channels.find(val1 => val1.name === "staff-logs").send({ embed: embed1 }).catch(err => console.error(err));
    };
 }
+
+function ban(msg, args) {
+   try {
+      //CHECKS IF A USER WAS MENTIONED TO BAN
+      if (!args.member) {
+         const embed = errorMsg('Member not found')
+         return errorMsg //will return to another file tat contains embed settings
+      }// END IF
+
+      //CHECKS TO SEE IF THERE WAS REASON FOR BAN
+      if (!args.reason) {
+         const embed = errorMsg('reason not specified')
+         return errorMsg
+      }//END IF
+
+      //CHECKS TO SEE IF AUTHOR HAS PERMISSION TO BAN
+      if(args.member.hasPermission('KICK_MEMBERS')) {
+         const embed = errorMsg('you don\'t got the perms')
+         return errorMsg
+      }
+
+      //SENDS THE BANNED USER THAT THEY WERE BANNED
+      await user.send({
+         embed: {
+            title: `You have been banned from ${message.guild.name}.`,
+            color: colours.red,
+            thumbnail: {
+               url: message.guild.iconURL
+            },
+            fields: [
+               {
+                  name: 'Reason:',
+                  value: args.reason
+               }
+            ],
+         }
+      })
+
+      //SENDS THE SERVER-LOGS CHANNEL THE BAN MESSAGE
+      await message.guild.channels
+         .find(c => c.name === channels.ban)//BAN CHANNEL WILL BE SPECIFIED IN FILE TAT CONTAINS EMBED
+         .send({
+            embed: {
+               color: colours.red,
+               title: 'Ban',
+               description: `${user} has been banned`,
+               author: {
+                  name: message.member.user.username,
+                  icon_url: message.member.user.avatarURL
+               },
+               fields: [
+                  {
+                     name: 'Reason:',
+                     value: args.reason
+                  }
+               ],
+            }
+         })
+
+      //BANS THE USER
+      await args.member.ban({
+         days: time,
+         reason: args.reason
+      })
+   }//END TRY 
+   catch(e) {
+      console.log('ban command failed')
+   }//END CATCH
+}
