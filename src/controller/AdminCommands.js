@@ -1,7 +1,7 @@
 module.exports = {
    
    warn: async function(msg) {
-      var warning = warn(msg)
+      
       console.log('the first function')
       args: [
          {
@@ -13,6 +13,7 @@ module.exports = {
             match: 'rest'
          }
       ]
+      var warning = warn(msg,args)
    }
    /*
    constructor () {
@@ -46,15 +47,12 @@ function warn(msg, args) {
       console.log('beep')
       msg.channel.send('booping')
       var guild = msg.guild;
-      logger.log('info', `Warn command used by ${msg.author.tag} ID: ${msg.author.id} Time: ${Date()} Guild: ${guild}`)
-      if (!msg.guild.member(msg.author).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return msg.reply('Insufficant Permissions').catch(console.error)
-      const Discord = require('discord.js');
-      const config = require("../config.json");
+      if (!msg.guild.member(msg.author).hasPermission('KICK_MEMBERS')) return msg.reply('YOU DON\'T GOT THE PERMS').catch(console.error)
       let reason = args.slice(1).join(' ')
       let user = msg.mentions.users.first()
       let member = msg.guild.member(user)
       const embed19 = new Discord.RichEmbed()
-         .setColor("#f0ffff")
+         .setColor("#800080")
          .setDescription("**Command: **" + `${config.prefix}warn`)
          .addField("**Usage:**", `${config.prefix}warn <@username> <reason>`)
          .addField("**Example:**", `${config.prefix}warn @xiaonai Spamming!`)
@@ -64,7 +62,7 @@ function warn(msg, args) {
       if (msg.mentions.users.size < 1) return msg.reply("You must mention someone to warn them.").catch(console.error)
       if (user === msg.author) return msg.reply("You cannot warn yourself")
       const embed = new Discord.RichEmbed()
-         .setColor('#ff9966')
+         .setColor('#8000800')
          .setTimestamp()
          .setThumbnail(user.avatarURL)
          .addField('Action:', "Warning")
@@ -75,14 +73,14 @@ function warn(msg, args) {
          .addField("Server:", msg.guild)
 
       const embed1 = new Discord.RichEmbed()
-         .setColor('#ff9966')
+         .setColor('#8000800')
          .setTimestamp()
          .setThumbnail(user.avatarURL)
          .addField('Action:', "Warning")
          .addField('User:', user.username + '#' + user.discriminator)
          .addField("User ID:", user.id)
-         .addField("Moderator:", msg.author.username + "#" + msg.author.discriminator)
-         .addField("Reason:", reason)
+         .addField('Moderator:', msg.author.username + "#" + msg.author.discriminator)
+         .addField('Reason:', reason)
       msg.channel.send({ embed: embed1 })
       user.send({ embed: embed })
       guild.channels.find(val1 => val1.name === "staff-logs").send({ embed: embed1 }).catch(err => console.error(err));
