@@ -4,12 +4,14 @@ const commands = require('./Commands.js');
 const verification = require('./Verification.js');
 
 const bot = new Discord.Client();
+var guild;
 
 module.exports = {
     bot: bot,
 };
 
 bot.on('ready', async ()=>{
+    guild = await bot.guilds.find(g => g.id === config.guild_id);
     console.log('Bot Starting');
     console.log(`Logged in as ${bot.user.tag}!`);
 });
@@ -25,8 +27,10 @@ bot.on('message', async(msg)=>{
     await commands.commandSwitch(msg);
 });
 
-bot.on('guildMemberAdd', member => {
-    verification.verify(member); 
+bot.on('guildMemberAdd', async(member) => {
+    let role = guild.roles.find(r => r.name === "unverified");
+    member.addRole(role);
+    await verification.verify(bot, guild, member);
 });
 
 bot.login(config.token);

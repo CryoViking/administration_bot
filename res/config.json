@@ -1,5 +1,7 @@
 {
     "prefix":"prefix of your choice",
     "token": "your bots token",
-    "id": "your bots id"
+    "id": "your bots id",
+    "guild_id": "your guilds id",
+    "join_channel_id": "The id of the channel that new users see first."
 }
