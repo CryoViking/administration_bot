@@ -14,7 +14,7 @@ module.exports.verify = async function(bot, guild, member){
             },
             fields: [{
                 name: `Entering in the Verification Code: ${code}`,
-                value: "What happens if you don't do it\n or type something else,\n simple: you get kicked."
+                value: "What happens if you don't do it\n or type something else,\n simple: you get kicked.\n Will take up to 20 seconds to verify."
             }],
             timestamp: new Date(),
             footer: {
@@ -23,14 +23,17 @@ module.exports.verify = async function(bot, guild, member){
             }
         }
     }).then(setTimeout(function() {
-        if(member.lastMessage.content !== `${code}`){
+        if(member.lastMessage.content !== `${code}` 
+            || member.lastMessage === null 
+            || member.lastMessage === undefined)
+        {
             member.kick(`${member.id} - Invalid Verification`);
         }
         else{
             let role = guild.roles.find(r => r.name === "unverified");
             member.removeRole(role).then(`${member.id} || ${member.username} - verified`);
         }
-    },5000));
+    },20000));
 }
 
 async function generateCode(){

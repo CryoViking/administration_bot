@@ -2,6 +2,7 @@
     "prefix":"prefix of your choice",
     "token": "your bots token",
     "id": "your bots id",
+    "owners_id":"Your ID so that the bot can ping you",
     "guild_id": "your guilds id",
     "join_channel_id": "The id of the channel that new users see first."
 }

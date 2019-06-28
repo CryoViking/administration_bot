@@ -1,9 +1,8 @@
-const config = require('../../../res/dev_config.js')
+const config = require('../../../res/dev_config.json')
 
 module.exports.configure = async function(bot, guild){
     await configureStaffChannel(guild);
     await configureUnverifiedRole(guild);
-    await configureAdminBot(guild);
     await configureJoinChannel(guild);
 }
 
@@ -26,6 +25,38 @@ async function configureUnverifiedRole(guild){
         }).then(role => console.log(`Created new role with name ${role.name}`))
             .catch(/* do nothing */);
     }
+    var role = guild.roles.find(r => r.name === "unverified");
+    guild.channels.forEach(async(channel) => {
+        await channel.overwritePermissions(role, {
+            CREATE_INSTANT_INVITE: false,
+            KICK_MEMBERS: false,
+            BAN_MEMBERS: false,
+            ADMINISTRATOR: false,
+            MANAGE_CHANNELS: false,
+            MANAGE_GUILD: false,
+            ADD_REACTIONS: false,
+            READ_MESSAGES: false,
+            SEND_MESSAGES: false,
+            SEND_TTS_MESSAGES: false,
+            MANAGE_MESSAGES: false,
+            EMBED_LINKS: false,
+            ATTACH_FILES: false,
+            READ_MESSAGE_HISTORY: false,
+            MENTION_EVERYONE: false,
+            EXTERNAL_EMOJIS: false,
+            CONNECT: false,
+            SPEAK: false,
+            MUTE_MEMBERS: false,
+            DEAFEN_MEMBERS: false,
+            MOVE_MEMBERS: false,
+            USE_VAD: false,
+            CHANGE_NICKNAME: false,
+            MANAGE_NICKNAMES: false,
+            MANAGE_ROLES_OR_PERMISSIONS: false,
+            MANAGE_WEBHOOKS: false,
+            MANAGE_EMOJIS: false
+        });
+    });
 }
 
 async function configureJoinChannel(guild){

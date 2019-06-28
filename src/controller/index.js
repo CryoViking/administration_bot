@@ -13,6 +13,7 @@ module.exports = {
 
 bot.on('ready', async ()=>{
     guild = await bot.guilds.find(g => g.id === config.guild_id);
+    await setup.configure(bot, guild);
     console.log('Bot Starting');
     console.log(`Logged in as ${bot.user.tag}!`);
 });
