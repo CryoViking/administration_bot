@@ -3,10 +3,7 @@ const py = require('./PyExec.js');
 const fileDisplay = require('../view/DisplayFile.js');
 const guildReqeusts = require('./GuildHttpsRequest.js');
 const export_command = require('./Export.js');
-<<<<<<< HEAD
-=======
 const admin_command = require('./AdminCommands');
->>>>>>> 77a1e3449b82d6ac7738f61475831b915547c196
 const import_command = require('./Import.js');
 const confirmation = require('../view/Confirmation.js');
 
@@ -53,16 +50,8 @@ async function doGraphStuff(msg) {
 }
 
 async function test(msg){
-    let temp = {
-        name: "general",
-        type: 0,
-        topic: null,
-        rate_limit_per_user: 0,
-        position: 0,
-        permission_overwrites: [],
-        nsfw: false
-    };
-    msg.guild.createChannel(temp.name, 'category');
+    let currentChannels = await guildReqeusts.requestChannels(msg.guild.id);
+    console.log(currentChannels);
 }
 
 async function warn(msg) {

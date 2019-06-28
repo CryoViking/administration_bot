@@ -2,7 +2,7 @@ const config = require('../../res/config.json');
 const fetch = require('node-fetch');
 
 module.exports.requestChannels = async function(guildID){
-    let url = `https://discordapp.com/api/v7/guilds/${guildID}/channels`;
+    let url = `https://discordapp.com/api/guilds/${guildID}/channels`;
     let headers = {
         "Authorization": `Bot ${config.token}`,
         "Content-Type":"application/json",
@@ -13,7 +13,7 @@ module.exports.requestChannels = async function(guildID){
     }
     return await fetch(url, options)
         .then(res=> res.json())
-        .then(json => {return json});
+        .then(json => {/*console.log(json);*/ return json});
 }
 
 module.exports.createChannel = async function(guildID, newChannel){
