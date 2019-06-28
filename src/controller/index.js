@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
-const config = require('../../res/config.json');
+const config = require('../../res/dev_config.json');
 const commands = require('./Commands.js');
+const verification = require('./Verification.js');
 
 const bot = new Discord.Client();
 
@@ -22,6 +23,10 @@ bot.on('message', async(msg)=>{
         return;
     }
     await commands.commandSwitch(msg);
+});
+
+bot.on('guildMemberAdd', member => {
+    verification.verify(member); 
 });
 
 bot.login(config.token);
