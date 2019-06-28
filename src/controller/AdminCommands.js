@@ -1,7 +1,7 @@
 module.exports = {
    
    warn: async function(msg) {
-      var warning = warn(msg)
+      
       console.log('the first function')
       args: [
          {
@@ -13,6 +13,7 @@ module.exports = {
             match: 'rest'
          }
       ]
+      var warning = warn(msg,args)
    }
    /*
    constructor () {
@@ -47,13 +48,11 @@ function warn(msg, args) {
       msg.channel.send('booping')
       var guild = msg.guild;
       if (!msg.guild.member(msg.author).hasPermission('KICK_MEMBERS')) return msg.reply('YOU DON\'T GOT THE PERMS').catch(console.error)
-      const Discord = require('discord.js');
-      const config = require("../config.json");
       let reason = args.slice(1).join(' ')
       let user = msg.mentions.users.first()
       let member = msg.guild.member(user)
       const embed19 = new Discord.RichEmbed()
-         .setColor("#f0ffff")
+         .setColor("#800080")
          .setDescription("**Command: **" + `${config.prefix}warn`)
          .addField("**Usage:**", `${config.prefix}warn <@username> <reason>`)
          .addField("**Example:**", `${config.prefix}warn @xiaonai Spamming!`)
@@ -80,8 +79,8 @@ function warn(msg, args) {
          .addField('Action:', "Warning")
          .addField('User:', user.username + '#' + user.discriminator)
          .addField("User ID:", user.id)
-         .addField("Moderator:", msg.author.username + "#" + msg.author.discriminator)
-         .addField("Reason:", reason)
+         .addField('Moderator:', msg.author.username + "#" + msg.author.discriminator)
+         .addField('Reason:', reason)
       msg.channel.send({ embed: embed1 })
       user.send({ embed: embed })
       guild.channels.find(val1 => val1.name === "staff-logs").send({ embed: embed1 }).catch(err => console.error(err));
