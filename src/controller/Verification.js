@@ -1,5 +1,4 @@
 const config = require('../../res/dev_config.json')
-const bot = require('./index.js').bot;
 
 module.exports.verify = async function(bot, guild, member){
     let joinChannel = guild.channels.find(c => c.id === config.join_channel_id);

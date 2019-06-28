@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const config = require('../../res/dev_config.json');
 const commands = require('./Commands.js');
 const verification = require('./Verification.js');
+const setup = require('./pre-live/Setup.js');
 
 const bot = new Discord.Client();
 var guild;
