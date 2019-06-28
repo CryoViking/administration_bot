@@ -3,6 +3,10 @@ const py = require('./PyExec.js');
 const fileDisplay = require('../view/DisplayFile.js');
 const guildReqeusts = require('./GuildHttpsRequest.js');
 const export_command = require('./Export.js');
+<<<<<<< HEAD
+=======
+const admin_command = require('./AdminCommands');
+>>>>>>> 77a1e3449b82d6ac7738f61475831b915547c196
 const import_command = require('./Import.js');
 const confirmation = require('../view/Confirmation.js');
 
@@ -62,6 +66,7 @@ async function test(msg){
 }
 
 async function warn(msg) {
+    msg.channel.send('working on it')
     admin_command.warn(msg.author);
 }
 
