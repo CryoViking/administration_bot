@@ -19,63 +19,75 @@ module.exports.importConfiguration = async function(guild, JSONConfig){
                     .catch(/* do nothing */);
             }
     })
+    let generic_parent = [];
     let categories = [];
-    var position = 0;
+    let channels = [];
+    var categoryPosition = 0;
     JSON.parse(JSONConfig).channels.forEach(element => {
         if(element.type === 4){
-            categories.push({
+            object = {
                 name: element.name,
                 type: element.type,
                 topic: element.topic,
                 rate_limit_per_user: element.rate_limit_per_user,
-                position: position,
+                position: categoryPosition,
                 permission_overwrites: element.permission_overwrites,
                 parent_id: "",
-                nsfw: element.nsfw
-            });
+                nsfw: element.nsfw,
+                children: element.children
+            }
+            categories.push(object);
+            generic_parent.push(object);
+            categoryPosition++;
         }
-        position++;
     });
-    categories.forEach(element => {
-        /*
-        guild.createChannel(JSON.stringify(element))
-            .then(jsonObj => console.log(`Created Channel ${jsonObj.name}, ID: ${jsonObj.id}`))
-            .catch(console.error);
-            */
-        guildReqeusts.createChannel(guild.id, JSON.stringify(element));
-    });
-    let parentCategories = guildReqeusts.requestChannels();
-    for(var ii = 0; ii<parentCategories.length; ii++){
-        let created = parentCategories.get(ii);
-        let generic = JSON.parse(JSONConfig).channels.get(ii)
-        let created_id = created.id;
-        await generic.children.forEach(async(child) => {
-            /*
-            await guild.createChannel(JSON.stringify({
+    let childPosition = 0;
+    let orphanPosition = 0;
+    JSON.parse(JSONConfig).channels.forEach(element => {
+        if(element.type === 4){
+            element.children.forEach(child => {
+                channels.push({
+                    parent: element,
+                    name: child.name,
+                    type: child.type,
+                    topic: child.topic,
+                    rate_limit_per_user: child.rate_limit_per_user,
+                    position: childPosition,
+                    permission_overwrites: child.permission_overwrites,
+                    nsfw: child.nsfw
+                });
+                childPosition++;
+            })
+        }
+        else{
+            channels.push({
                 name: child.name,
                 type: child.type,
                 topic: child.topic,
                 rate_limit_per_user: child.rate_limit_per_user,
-                position: child.position,
+                position: orphanPosition,
                 permission_overwrites: child.permission_overwrites,
-                parent_id: created_id,
                 nsfw: child.nsfw
-            })).then(jsonObj => console.log(`Created Channel ${jsonObj.name}, ID: ${jsonObj.id}`))
-            .catch(console.error);
-            */
-            guildReqeusts.createChannel(guild.id, JSON.stringify({
-                name: child.name,
-                type: child.type,
-                topic: child.topic,
-                rate_limit_per_user: child.rate_limit_per_user,
-                position: child.position,
-                permission_overwrites: child.permission_overwrites,
-                parent_id: created_id,
-                nsfw: child.nsfw
-            }));
-        });
-    }
+            })
+            orphanPosition++;
+        }
+    });
+    categories.forEach(async(element) => {
+        let type = await channelType(element.type);
+        await guild.createChannel(element.name, type);
+    });
 
+    generic_parent.forEach(async(genericParent) => { 
+        genericParent.children.forEach(async(child) =>{
+        let childType = await channelType(child.type);
+        guild.createChannel(child.name, childType)
+            .then(channel => {
+                let category = guild.channels.find(c => c.name === genericParent.name && c.type == "category");
+                if (!category) throw new Error("Category channel does not exist");
+                channel.setParent(category.id);
+            }).catch(/* */);
+        });
+    });
 }
 
 async function clearRoles(guild){
@@ -97,4 +109,24 @@ async function clearRoles(guild){
 
 async function clearChannels(guild){
     guild.channels.forEach(channel => channel.delete());
+}
+
+async function channelType(type)
+{
+    switch(type){
+        case 0:
+            return 'text';
+        case 1: 
+            return 'dm';
+        case 2:
+            return 'voice';
+        case 3:
+            return 'group_dm';
+        case 4:
+            return 'category';
+        case 5:
+            return 'news';
+        case 6:
+            return 'store';
+    }
 }

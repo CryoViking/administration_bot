@@ -50,16 +50,12 @@ async function doGraphStuff(msg) {
 }
 
 async function test(msg){
-    let temp = {
-        name: "general",
-        type: 0,
-        topic: null,
-        rate_limit_per_user: 0,
-        position: 0,
-        permission_overwrites: [],
-        nsfw: false
-    };
-    msg.guild.createChannel(temp.name, 'category');
+    let data = await msg.guild.fetchWebhooks();
+    console.log(data);
+    let arr_data = [...data.values()];
+    arr_data.forEach(element => {
+        console.log(JSON.stringify(data.get(element), null, 4));
+    });
 }
 
 async function warn(msg) {
