@@ -19,7 +19,8 @@ module.exports = {
 async function populationCalc(msg) {
     msg.channel.send("Doing population stuff...");
     var confpath = "py/src/config.potato";       // TODO change me after deploy
-    py.run("grabpop.py", [confpath]);
+    var csvpath = "cache/metrics/data.csv";
+    py.run("grabpop.py", [confpath, '-o', csvpath]);
     msg.channel.send("Done");
 }
 
