@@ -1,24 +1,42 @@
 const guildReqeusts = require('./GuildHttpsRequest.js');
-const Discord = require('discord.js');
 
 module.exports.importConfiguration = async function(guild, JSONConfig){
     await clearRoles(guild);
     await clearChannels(guild);
+    await importRoles(guild, JSONConfig);
+    await importChannels(guild, JSONConfig);
+
+    setTimeout(function() {
+        channels = guild.channels;
+        JSON.parse(JSONConfig).webhooks.forEach(async(webhook) => {
+            let parent = channels.find(p => p.name === webhook.channelParent);
+            let channel = channels.find(c => c.parentID === parent.id && c.name === webhook.channel);
+            let hook = webhook.hook;
+            await channel.createWebhook(hook.name, hook.avatar)
+                .then(`Created Webhook: ${hook.name}`);
+        });
+    }, 60000);
+}
+
+async function importRoles(guild, JSONConfig){
     JSON.parse(JSONConfig).roles.forEach(async(element) => {
-            if(element.permissions !== "AdministrationBot" && 
-                element.name !== "@everyone" &&
-                element.managed !== true)
-            {
-                await guild.createRole({
-                    name: element.name,
-                    permissions: element.permissions,
-                    color: element.color,
-                    hoist: element.hoist,
-                    mentionable: element.mentionable
-                }).then(role => console.log(`Created new role with name ${role.name}`))
-                    .catch(/* do nothing */);
-            }
-    })
+        if(element.permissions !== "AdministrationBot" && 
+            element.name !== "@everyone" &&
+            element.managed !== true)
+        {
+            await guild.createRole({
+                name: element.name,
+                permissions: element.permissions,
+                color: element.color,
+                hoist: element.hoist,
+                mentionable: element.mentionable
+            }).then(role => console.log(`Created new role with name ${role.name}`))
+                .catch(/* do nothing */);
+        }
+    });
+}
+
+async function importChannels(guild, JSONConfig){
     let generic_parent = [];
     let categories = [];
     let channels = [];
@@ -41,6 +59,7 @@ module.exports.importConfiguration = async function(guild, JSONConfig){
             categoryPosition++;
         }
     });
+
     let childPosition = 0;
     let orphanPosition = 0;
     JSON.parse(JSONConfig).channels.forEach(element => {
@@ -72,6 +91,7 @@ module.exports.importConfiguration = async function(guild, JSONConfig){
             orphanPosition++;
         }
     });
+
     categories.forEach(async(element) => {
         let type = await channelType(element.type);
         await guild.createChannel(element.name, type);
@@ -128,5 +148,13 @@ async function channelType(type)
             return 'news';
         case 6:
             return 'store';
+    }
+}
+
+function wait(ms){
+    var start = new Date().getTime();
+    var end = start;
+    while(end < start + ms) {
+        end = new Date().getTime();
     }
 }

@@ -18,7 +18,7 @@
         },
         {
             "name": "@everyone",
-            "permissions": 104324673,
+            "permissions": 104324689,
             "color": 0,
             "hoist": false,
             "managed": false,
@@ -31,13 +31,21 @@
             "hoist": false,
             "managed": false,
             "mentionable": true
+        },
+        {
+            "name": "AdministrationBot",
+            "permissions": 2146959359,
+            "color": 10181046,
+            "hoist": true,
+            "managed": false,
+            "mentionable": true
         }
     ],
     "channels": [
         {
             "name": "Text Channels",
             "type": 4,
-            "position": 0,
+            "position": 5,
             "permissions": [],
             "nsfw": false,
             "children": [
@@ -53,7 +61,7 @@
                 {
                     "name": "eehabsniho",
                     "type": 0,
-                    "topic": "",
+                    "topic": null,
                     "rate_limit_per_user": 0,
                     "position": 1,
                     "permission_overwrites": [],
@@ -73,7 +81,7 @@
                     "type": 0,
                     "topic": null,
                     "rate_limit_per_user": 0,
-                    "position": 4,
+                    "position": 3,
                     "permission_overwrites": [],
                     "nsfw": false
                 },
@@ -82,7 +90,7 @@
                     "type": 0,
                     "topic": null,
                     "rate_limit_per_user": 0,
-                    "position": 3,
+                    "position": 4,
                     "permission_overwrites": [],
                     "nsfw": false
                 },
@@ -91,16 +99,16 @@
                     "type": 0,
                     "topic": null,
                     "rate_limit_per_user": 0,
-                    "position": 6,
+                    "position": 5,
                     "permission_overwrites": [],
                     "nsfw": false
                 },
                 {
                     "name": "administration-bot",
                     "type": 0,
-                    "topic": "",
+                    "topic": null,
                     "rate_limit_per_user": 0,
-                    "position": 5,
+                    "position": 6,
                     "permission_overwrites": [],
                     "nsfw": false
                 },
@@ -118,7 +126,7 @@
         {
             "name": "Voice Channels",
             "type": 4,
-            "position": 0,
+            "position": 6,
             "permissions": [],
             "nsfw": false,
             "children": [
@@ -130,6 +138,16 @@
                     "nsfw": false
                 }
             ]
+        }
+    ],
+    "webhooks": [
+        {
+            "hook": {
+                "name": "GittyBoi",
+                "avatar": null
+            },
+            "channel": "commits",
+            "channelParent": "Text Channels"
         }
     ]
 }

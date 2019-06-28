@@ -73,10 +73,38 @@ module.exports.filterRoleData = async function(data){
     return filteredData;
 }
 
-module.exports.mergeJsonData = async function(channelData, roleData) {
+module.exports.getWebHooks = async function(guild){
+    let webHooks = [];
+    let data = await guild.fetchWebhooks();
+    function filterFields(value) {
+        return {
+            name: value.name,
+            avatar: value.avatar
+        }
+    }
+    async function constructWebHookObject(value, filtered){
+        let channel = guild.channels.find(c => c.id === value.channelID);
+        let parentChannel = guild.channels.find(p => p.id === channel.parentID);
+        return {
+            hook : filtered,
+            channel: channel.name,
+            channelParent: parentChannel.name
+        }
+    }
+    async function storeWebHooks(value, key, map){
+        let filtered = filterFields(value);
+        let constructed = await constructWebHookObject(value, filtered);
+        webHooks.push(constructed);
+    }
+    data.forEach(storeWebHooks);
+    return webHooks;
+}
+
+module.exports.mergeJsonData = async function(channelData, roleData, webHooks) {
     let finalStructure = {
         roles: roleData,
-        channels: channelData
+        channels: channelData,
+        webhooks: webHooks
     }
     return finalStructure;
 }

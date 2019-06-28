@@ -41,7 +41,7 @@ module.exports = {
    */
 }
 
-function warn(msg, args) {
+async function warn(msg, args) {
    console.log('second function')
    exports.run = function (msg,args) {
       console.log('beep')
@@ -87,7 +87,7 @@ function warn(msg, args) {
    };
 }
 
-function ban(msg, args) {
+async function ban(msg, args) {
    try {
       //CHECKS IF A USER WAS MENTIONED TO BAN
       if (!args.member) {

@@ -50,12 +50,8 @@ async function doGraphStuff(msg) {
 }
 
 async function test(msg){
-    let data = await msg.guild.fetchWebhooks();
-    console.log(data);
-    let arr_data = [...data.values()];
-    arr_data.forEach(element => {
-        console.log(JSON.stringify(data.get(element), null, 4));
-    });
+    msg.channel.createWebhook("GittyBoi", null)
+    .then(console.log("Webhook created"));
 }
 
 async function warn(msg) {
@@ -71,7 +67,12 @@ async function exportConfiguration(msg){
     let filtered_channel_data = await export_command.filterChannelInformation(channel_data);
     let role_data = await guildReqeusts.requestRoles(guildID);
     let filtered_role_data = await export_command.filterRoleData(role_data);
-    let merged_data = await export_command.mergeJsonData(filtered_channel_data, filtered_role_data);
+    let webHookData = await export_command.getWebHooks(msg.guild);
+    let merged_data = await export_command.mergeJsonData(
+            filtered_channel_data,
+            filtered_role_data,
+            webHookData
+        );
     await downloader.saveJsonFile("current_configuration.json", merged_data);
     msg.channel.send(`${msg.author} - Here is the current configuration`, { files: ["./cache/temp/file/current_configuration.json"] });
 }
