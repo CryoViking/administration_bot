@@ -1,4 +1,4 @@
-const config = require('../../res/config.json');
+const config = require('../../res/dev_config.json');
 const fetch = require('node-fetch');
 
 module.exports.requestChannels = async function(guildID){

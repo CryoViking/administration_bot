@@ -20,7 +20,7 @@ module.exports.importConfiguration = async function(guild, JSONConfig){
 
 async function importRoles(guild, JSONConfig){
     JSON.parse(JSONConfig).roles.forEach(async(element) => {
-        if(element.permissions !== "AdministrationBot" && 
+        if(element.name !== "AdministrationBot" && 
             element.name !== "@everyone" &&
             element.managed !== true)
         {
