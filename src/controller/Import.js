@@ -36,13 +36,14 @@ module.exports.importConfiguration = async function(guild, JSONConfig){
         }
         position++;
     });
-    categories.forEach(element => {
+    categories.forEach(async(element) => {
         /*
         guild.createChannel(JSON.stringify(element))
             .then(jsonObj => console.log(`Created Channel ${jsonObj.name}, ID: ${jsonObj.id}`))
             .catch(console.error);
             */
-        guildReqeusts.createChannel(guild.id, JSON.stringify(element));
+        let type = await channelType(element.type);
+        await guild.createChannel(element.name, type);
     });
     let parentCategories = guildReqeusts.requestChannels();
     for(var ii = 0; ii<parentCategories.length; ii++){
@@ -62,7 +63,6 @@ module.exports.importConfiguration = async function(guild, JSONConfig){
                 nsfw: child.nsfw
             })).then(jsonObj => console.log(`Created Channel ${jsonObj.name}, ID: ${jsonObj.id}`))
             .catch(console.error);
-            */
             guildReqeusts.createChannel(guild.id, JSON.stringify({
                 name: child.name,
                 type: child.type,
@@ -72,7 +72,10 @@ module.exports.importConfiguration = async function(guild, JSONConfig){
                 permission_overwrites: child.permission_overwrites,
                 parent_id: created_id,
                 nsfw: child.nsfw
-            }));
+            }))
+            */
+           let childType = channelType(child.type)
+           await guild.createChannel(child.name, childType);
         });
     }
 
@@ -97,4 +100,24 @@ async function clearRoles(guild){
 
 async function clearChannels(guild){
     guild.channels.forEach(channel => channel.delete());
+}
+
+async function channelType(type)
+{
+    switch(type){
+        case 0:
+            return 'text';
+        case 1: 
+            return 'dm';
+        case 2:
+            return 'voice';
+        case 3:
+            return 'group_dm';
+        case 4:
+            return 'category';
+        case 5:
+            return 'news';
+        case 6:
+            return 'store';
+    }
 }
