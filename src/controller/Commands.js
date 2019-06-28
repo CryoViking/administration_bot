@@ -26,6 +26,9 @@ module.exports = {
             case "graph":
                 await doGraphStuff(msg);
                 break;
+            case "pop":
+                await doPopulationStuff(msg);
+                break;
             case "warn":
                 await warn(msg);
                 break;
@@ -47,6 +50,13 @@ async function doGraphStuff(msg) {
     nums.shift();
     py.run("graphgen.py", [csvpath, '-o', imgpath, '-yl', 'Population']);
     msg.channel.send("Done, check dir");
+}
+
+async function doPopulationStuff(msg) {
+    msg.channel.send("Doing population stuff...");
+    var confpath = "py/src/config.potato";       // TODO change me after deploy
+    py.run("grabpop.py", [confpath]);
+    msg.channel.send("Done");
 }
 
 async function test(msg){
