@@ -44,19 +44,19 @@ if __name__ == "__main__":
     """
     Entry point. 
     """
+    print("pop stuff")
     args = get_args().parse_args()
     conf = get_conf_json(args.conf)
+
+    # TODO need this in a loop with interval
+    greq = requests.get(url=GUILD_MEMBER_URL.format(conf["guild_id"]))
+    gjson = greq.json()
+    mem_count = 0
+    if greq.status_code == 200:
+        mem_count = len(gjson)
+    print(mem_count)
 
     interval = args.intv       # interval in seconds, default 3600
     if interval < 60:
         interval = 60
-
-    while True:
-        greq = requests.get(url=GUILD_MEMBER_URL.format(conf["guild_id"]))
-        gjson = greq.json()
-        mem_count = 0
-        if greq.status_code == 200:
-            mem_count = len(gjson)
-        print(mem_count)
-        time.sleep(2)       # TODO use interval here after deployment
 
