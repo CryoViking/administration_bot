@@ -9,7 +9,9 @@ import json
 import time
 
 # use .format() on me
-APIBASE = "https://discordapp.com/api/{}"
+API_BASE_URL = "https://discordapp.com/api{}"
+USER_GUILD_URL = API_BASE_URL.format("/users/@me/guilds")
+GUILD_MEMBER_URL = API_BASE_URL.format("/guilds/{}/members")
 
 def get_args():
     """
@@ -43,9 +45,18 @@ if __name__ == "__main__":
     Entry point. 
     """
     args = get_args().parse_args()
-    interval = args.intv       # interval in seconds, default 3600
-    # TODO make checks on interval (60 sec min)
     conf = get_conf_json(args.conf)
-    botid = conf["id"]
-    guid = conf["guild_id"]
+
+    interval = args.intv       # interval in seconds, default 3600
+    if interval < 60:
+        interval = 60
+
+    while True:
+        greq = requests.get(url=GUILD_MEMBER_URL.format(conf["guild_id"]))
+        gjson = greq.json()
+        mem_count = 0
+        if greq.status_code == 200:
+            mem_count = len(gjson)
+        print(mem_count)
+        time.sleep(2)       # TODO use interval here after deployment
 
