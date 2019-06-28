@@ -50,8 +50,12 @@ async function doGraphStuff(msg) {
 }
 
 async function test(msg){
-    let currentChannels = await guildReqeusts.requestChannels(msg.guild.id);
-    console.log(currentChannels);
+    let data = await msg.guild.fetchWebhooks();
+    console.log(data);
+    let arr_data = [...data.values()];
+    arr_data.forEach(element => {
+        console.log(JSON.stringify(data.get(element), null, 4));
+    });
 }
 
 async function warn(msg) {
