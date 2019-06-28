@@ -6,6 +6,7 @@ module.exports = {
     run: async function(name, args) {
         var path = getScriptPath(name);
         args = [path].concat(args);
+        console.log(args.toString());
         runPy(args);
     }
 }
@@ -21,5 +22,6 @@ function runPy(args) {
     const proc = spawn('python', args);
     proc.stdout.on('data', (data) => {console.log(`stdout: ${data.toString('utf8')}`);});
     proc.stderr.on('data', (data) => {console.log(`stderr: ${data.toString('utf8')}`);});
+    proc.on('close', (code) => {console.log(`closed: ${code}`);});
 }
 
