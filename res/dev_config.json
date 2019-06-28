@@ -1,7 +1,17 @@
+<<<<<<< HEAD
 {
     "prefix":"!",
     "token":"NTkyODIwNTk3NTEyMjA4Mzg1.XRYWAQ.E6PEWJ1tpCZ2qu_sFpbzg-w70Eo",
     "id": "592820597512208385",
     "guild_id": "591624515625287684",
     "join_channel_id": "594144769559494676"
+=======
+{
+    "prefix":"!",
+    "token":"NTkyODIwNTk3NTEyMjA4Mzg1.XRYWAQ.E6PEWJ1tpCZ2qu_sFpbzg-w70Eo",
+    "id": "592820597512208385",
+    "owners_id":"367956022674849794",
+    "guild_id": "591624515625287684",
+    "join_channel_id": "594144769559494676"
+>>>>>>> cc4ee31d622658843929af164d36cd3db7d986e1
 }

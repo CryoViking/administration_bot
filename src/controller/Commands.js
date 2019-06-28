@@ -6,7 +6,11 @@ const export_command = require('./Export.js');
 const admin_command = require('./AdminCommands');
 const import_command = require('./Import.js');
 const confirmation = require('../view/Confirmation.js');
+<<<<<<< HEAD
 const winston = require('winston');
+=======
+const metric = require('./Metric.js');
+>>>>>>> cc4ee31d622658843929af164d36cd3db7d986e1
 
 module.exports = {
     commandSwitch: async function commandSwitch(msg){
@@ -26,6 +30,9 @@ module.exports = {
                 break;
             case "graph":
                 await doGraphStuff(msg);
+                break;
+            case "metric":
+                await metric.cmdParse(msg, args);
                 break;
             case "warn":
                 await warn(msg);
