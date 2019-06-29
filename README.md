@@ -28,10 +28,13 @@ Virtual Python Environment  <br>
 
 # How to use
 Afer cloning the repo,  <br>
+1. From the root folder configure ``./res/config.json`` to contain the right information.  <br>
+2. Run the command from the folder that contains ``package.json``:  <br>
 ```  
 npm start  
 ```  
-Will start the server.  <br>
+This will start the bot.  <br>
+Wait for the console messages that say that bot has logged in.  <br>
 
 Available commands:
 - ``ping`` (nothing to special, repsons with "Pong!")  <br>
